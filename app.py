@@ -87,4 +87,25 @@ elif section == "⚙️ Model Training":
     st.pyplot(fig_pred)
 
 elif section == "📈 Results":
-    st.ti
+    st.title("📈 Model Evaluation & Metrics")
+
+    st.markdown("### Adjust Threshold Again (optional)")
+    threshold = st.slider("Threshold for conversion prediction:", 0.0, 1.0, 0.3, 0.01, key="eval_threshold")
+    y_pred = (y_probs >= threshold).astype(int)
+
+    # Classification report
+    st.subheader("Classification Report")
+    st.text(classification_report(y_test, y_pred, zero_division=1))
+
+    # Confusion Matrix
+    cm = confusion_matrix(y_test, y_pred)
+    st.subheader("Confusion Matrix")
+    fig_cm, ax_cm = plt.subplots()
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                xticklabels=['Predicted No', 'Predicted Yes'],
+                yticklabels=['Actual No', 'Actual Yes'], ax=ax_cm)
+    ax_cm.set_title("Confusion Matrix")
+    st.pyplot(fig_cm)
+
+    st.info("ℹ️ If precision is 0.0, the model may not be predicting that class — try adjusting the threshold.")
+
