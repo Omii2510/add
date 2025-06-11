@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 st.title("Conversion Prediction Web App")
 
 # File uploader
-uploaded_file = 
+uploaded_file = "https://raw.githubusercontent.com/Omii2510/add/refs/heads/main/Dataset_Ads.csv"
 if uploaded_file:
     df = pd.read_csv(uploaded_file)
     st.write("Dataset Preview:")
